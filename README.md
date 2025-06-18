@@ -55,6 +55,31 @@ Se automatizó la ejecución de pruebas en GitHub con:
 - **Archivo del workflow:** .github/workflows/api-ci.yml
 Verifica automáticamente cada push o pull request en la rama main.
 
+## ✅ Validación en múltiples entornos
+Gracias al uso de una matriz en el workflow de GitHub Actions, las pruebas se ejecutan automáticamente en distintas versiones de Node.js (18.x, 20.x, 22.x), garantizando compatibilidad y estabilidad.
+
+✔️ Ejecución exitosa  
+![Ejecución exitosa](img/exito.png)
+
+Todas las pruebas pasaron correctamente en los tres entornos definidos. Esto demuestra que la API funciona de forma consistente sin importar la versión del entorno Node.js.
+
+## ❌ Demo de fallo intencional
+Para demostrar que GitHub Actions detecta automáticamente errores, se simula una falla modificando intencionalmente una de las pruebas.
+
+🔁 Modificación del test
+Se cambia el nombre de la propiedad esperada de precio a valor en el archivo app.test.js:
+
+```diff
+- expect(res.body[0]).toHaveProperty("precio");
++ expect(res.body[0]).toHaveProperty("valor");
+```
+💥 Resultado en el workflow
+Al hacer commit de ese cambio, GitHub Actions ejecuta las pruebas y detecta el fallo:
+
+![Ejecución fallida](img/fallo.png)
+
+La prueba falla correctamente, demostrando que el sistema de CI detecta automáticamente los errores antes de que lleguen a producción.
+
 ## 📌 Preguntas Finales
 **1. ¿Qué importancia tiene probar en múltiples entornos de Node.js?**  
 Probar en varias versiones permite asegurar que la API funciona correctamente sin importar qué versión esté usando el entorno de ejecución. Esto es clave para compatibilidad y mantenibilidad del código.
