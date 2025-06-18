@@ -6,6 +6,6 @@ describe("GET /api/inmuebles", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.length).toBeGreaterThan(0);
     expect(res.body[0]).toHaveProperty("direccion");
-    expect(res.body[0]).toHaveProperty("valor");
+    expect(res.body[0]).toHaveProperty("precio");
   });
 });
